@@ -1,19 +1,19 @@
 import { Button } from '@mui/material'
-import React from 'react'
+import axios from 'axios'
+import React, { useEffect } from 'react'
 
 
 const Browse = () => {
-    const jobs = [
-        {
-            id: 1, title: "Software Engineer", company: "Google",
-            location: "Banglore"
-        },
-        {
-            id: 2, title: "Data Scientist", company: "Amazon",
-            location: "Hyderabad"
-        },
 
-    ]
+    const [jobs, setJobs] = React.useState([])
+
+    let readJobs =async () => {
+        let jobs = await axios.get("http://localhost:3001/jobs")
+        setJobs(jobs.data);        
+    }
+    useEffect(() => {
+        readJobs();
+    },[jobs])
 
     return (
         <div>
