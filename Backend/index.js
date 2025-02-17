@@ -7,25 +7,31 @@ const app = express()
 app.use(express.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cors())
-app.get("/users", (req, res) => {
+app.post("/login", (req, res) => {
     let data = req.body
+    console.log(data);
+    
     if (req.body.email && req.body.password) {
         let userDetails = fetchUserDetails(data)
         userDetails.then((val) => {
-            console.log(val);
-            res.send(val)
+            delete val.password
+            val ? res.send(val) : res.send({
+                error : "The user is not existing.."
+            })
         }).catch((err) => {
-
+            res.send(err)
         })
 
     }
     else {
-        res.send("email or password not found")
+        res.send({
+            error : "invalid email or password"
+        })
     }
 
 
 })
-app.post("/users", async (req, res) => {
+app.post("/signup", async (req, res) => {
     let data = req.body    
     if (req.body.email && req.body.password) {
         let user = await addUserDetails(data)
@@ -36,13 +42,6 @@ app.post("/users", async (req, res) => {
         res.send("email or password not found")
     }
 })
-app.get("/job", (req, res) => {
-    res.send("hello world")
-})
-app.post("/job", (req, res) => {
-    res.send("hello world")
-})
-
 app.get("/jobs", (req, res) => {
     let jobs = fetchJobs(req.body)
     jobs.then((val) => {
@@ -54,7 +53,7 @@ app.get("/jobs", (req, res) => {
 app.post("/jobs", (req, res) => {
     let data = req.body
     if (data?.title && data?.description && data?.location && data?.salary && data?.user === "admin") {
-        let job = createJobs(data)
+        let job = createJobs(data)  
         job.then((val) => {
             res.send(val)
         }).catch((err) => {

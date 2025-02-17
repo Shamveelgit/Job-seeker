@@ -1,0 +1,76 @@
+pages 
+    - Home page
+        -landing page with navbar
+        -login and sign up
+    - login
+        - users and admins
+        - redirect to the dashboard
+    
+>    user-view 
+        - display the user profile
+        - list of applied jobs
+        - sidebar / navbar 
+            - browse jobs
+            - view applied jobs
+            - update profile 
+            - Log out
+    browse Jobs page
+        - list all jobs
+        - filter jobs
+        - option save or aplly for the jobs
+        - applied jobs
+>   admin view 
+        - list all job listings
+        - manage jobs
+
+back-end
+
+    user sign up {
+        url : "http://localhost:3001/users,
+        body-type : application/json,
+        body : {
+            name,
+            email,
+            password,
+            role,
+        }
+    }
+    user login {
+        url : http://localhost:3001/users,
+        body-type : application/json,
+        body : {
+            email,
+            password
+        }
+    }
+
+    jobs 
+     - add job = {
+        url : "http://localhost:3001/jobs"
+        body-type : application/json,
+        bod : {
+            Job-title ,
+            description,
+            requirements,
+            Location,
+            salary,
+            job-type
+        }
+     }
+     - remove job = {
+        body : {
+            id,
+        }
+     }
+
+     - update job = {
+        body = {
+            id,
+            Job-title ,
+            description,
+            requirements,
+            Location,
+            salary,
+            job-type
+        }
+     }

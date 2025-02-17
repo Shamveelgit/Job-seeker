@@ -10,17 +10,19 @@ const Browse = () => {
     let readJobs =async () => {
         let jobs = await axios.get("http://localhost:3001/jobs")
         setJobs(jobs.data);        
+        console.log(jobs.data);
+        
     }
     useEffect(() => {
         readJobs();
-    },[jobs])
+    },[])
 
     return (
         <div>
             <h2>Browse</h2>
             <ul>
                 {jobs.map((job) => (
-                    <li key={job.id}>
+                    <li key={job._id}>
                         <h3>{job.title}</h3>
                         <p>{job.company}-
                             {job.location}</p>

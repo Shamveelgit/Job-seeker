@@ -8,20 +8,21 @@ import {   Route, Routes } from 'react-router-dom'
 import Signup from './components/Signup'
 import User from './components/User'
 import Browse from './components/Browse'
+import { userInCookie } from './components/utils'
 
 
 
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [user, setUser] = useState(userInCookie())
   return (
     <>
-      <Navbar />
+      <Navbar user={user} setUser={setUser} />
       <Routes>
-        <Route path='/signup' element={<Signup />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/dashboard' element={<User />} />
-        <Route path='/' element={<Browse />} />
+        <Route path='/signup' element={<Signup user={user} setUser={setUser}  />} />
+        <Route path='/login' element={<Login user={user} setUser={setUser}  />} />
+        <Route path='/dashboard' element={<User user={user} setUser={setUser}  />} />
+        <Route path='/' element={<Browse user={user} setUser={setUser}  />} />
       </Routes>
 
     </>

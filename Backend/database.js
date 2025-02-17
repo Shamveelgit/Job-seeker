@@ -20,7 +20,6 @@ const checkUser = async (data) => {
 async function fetchUserDetails(data) {
   try {
     await client.connect()
-
     const database = client.db("job_portal")
     const collection = database.collection("users")
     const users = await collection.findOne(data)

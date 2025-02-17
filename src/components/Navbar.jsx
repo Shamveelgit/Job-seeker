@@ -5,10 +5,14 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AppBar } from '@mui/material';
+import { signOut, userInCookie } from './utils';
 
-export default function ButtonAppBar() {
+export default function ButtonAppBar({user,setUser}) {
+  const navigate = useNavigate()
+  console.log(user);
+  
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -25,20 +29,29 @@ export default function ButtonAppBar() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             JOB PORTAL
           </Typography>
-          <Link to='/login'>
-          <Button color="warning" variant='contained'>Login</Button>  
-          </Link>
-          <Link to='/signup'>
-          <Button color="success" variant='contained'>Signup</Button>  
-          </Link>
+          {
+              user.email ? "" :  (
+              <>
+                <Link to='/login'>
+                  <Button color="warning" variant='contained'>Login</Button>
+                </Link>
+                <Link to='/signup'>
+                  <Button color="success" variant='contained'>Signup</Button>
+                </Link>
+              </>
+            )
+          }
           <Link to='/dashboard'>
-          <Button color="secondary" variant='contained'>User</Button>  
+            <Button color="secondary" variant='contained'>User</Button>
           </Link>
           <Link to='/'>
-          <Button color="error" variant='contained'>Browse</Button>  
+            <Button color="error" variant='contained'>Browse</Button>
           </Link>
-         
-         
+          {
+            user.email && <Button onClick={() => {signOut(setUser({}));}} color="error" variant='contained'>log out</Button>
+            
+          }
+
         </Toolbar>
       </AppBar>
     </Box>
